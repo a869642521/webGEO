@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browserbase — We help AI use the web.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR — match Browserbase marketing (Products / Solutions / Resources + Pricing / Docs) -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a href="#" class="navbar__logo">
+        <span class="logo-mark-b" aria-hidden="true">B</span>
+        <span class="logo-text">Browserbase</span>
+      </a>
+      <nav class="navbar__links">
+        <a href="#" class="nav-link nav-link--dropdown">Products <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#" class="nav-link nav-link--dropdown">Solutions <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#" class="nav-link nav-link--dropdown">Resources <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2.5 3.5L5 6l2.5-2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#" class="nav-link">Pricing</a>
+        <a href="#" class="nav-link nav-link--external">Docs <svg class="nav-external" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </nav>
+      <div class="navbar__actions">
+        <a href="#" class="btn btn--ghost btn--nav-text">Log in</a>
+        <a href="#" class="btn btn--primary btn--nav">Sign Up</a>
+        <a href="#" class="btn btn--outline-dark btn--nav">Get a Demo</a>
+      </div>
+      <button class="navbar__hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO — order: announcement → 3D cube → headline (match reference) -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__announce" role="note">
+          <span class="hero__announce-mark" aria-hidden="true">B</span>
+          <span class="hero__announce-x" aria-hidden="true">×</span>
+          <span class="hero__announce-cat">category</span>
+          <span class="hero__announce-copy">Introducing our Search API: Web search, built for agents</span>
+          <span class="hero__announce-arrow" aria-hidden="true">&gt;</span>
+        </div>
+
+        <div class="hero__cube-wrap" aria-hidden="true">
+          <!-- 2×2×2 isometric: spaced cells, per-cube outline, outer wireframe, hard shadow -->
+          <svg class="hero-rubiks" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+            <defs>
+              <filter id="rubiksFloorShadow" x="-35%" y="-35%" width="170%" height="170%">
+                <feDropShadow dx="16" dy="24" stdDeviation="0" flood-color="#1f2937" flood-opacity=".24"/>
+              </filter>
+            </defs>
+            <ellipse cx="180" cy="268" rx="128" ry="17" fill="#1f2937" opacity=".09"/>
+            <g filter="url(#rubiksFloorShadow)">
+              <!-- iso grid: x=180+(i-j)*29, y=236+(i+j)*16-k*28 — gaps between cells -->
+              <!-- k=0 bottom layer (draw first) -->
+              <g transform="translate(180,236)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#e5e7eb"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#9ca3af"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#6b7280"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(209,252)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#93c5fd"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#60a5fa"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#2563eb"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(151,252)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fdba74"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#fb923c"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#ea580c"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(180,268)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#ddd6fe"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#8b5cf6"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#5b21b6"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <!-- k=1 top layer -->
+              <g transform="translate(180,208)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fef08a"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#eab308"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#a16207"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(209,224)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fce7f3"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#f472b6"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#be185d"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(151,224)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#99f6e4"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#2dd4bf"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#0f766e"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <g transform="translate(180,240)">
+                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fecdd3"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#fb7185"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#be123c"/>
+                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
+              </g>
+              <!-- outer transparent shell -->
+              <path d="M 122 200 L 180 166 L 238 200 L 238 254 L 180 288 L 122 254 Z" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linejoin="miter"/>
+              <path d="M 180 166 L 180 190" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
+              <path d="M 238 200 L 216 212" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
+              <path d="M 122 200 L 144 212" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
+              <path d="M 180 288 L 180 264" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="hero__copy">
+          <h1 class="hero__title">We help AI use the web.</h1>
+          <p class="hero__sub">
+            Autonomously read, write, and perform tasks on the web with a headless browser.
+          </p>
+          <div class="hero__cta">
+            <a href="#" class="btn btn--primary btn--lg">Try for free</a>
+            <a href="#" class="btn btn--outline-dark btn--lg">Get a demo</a>
+          </div>
+          <p class="hero__note">No credit card required.</p>
+        </div>
+        <!-- Logo Wall -->
+        <div class="logo-wall">
+          <p class="logo-wall__label">Trusted by AI-first companies worldwide</p>
+          <div class="logo-wall__logos">
+            <span class="logo-pill">Notion</span>
+            <span class="logo-pill">Microsoft</span>
+            <span class="logo-pill">clay</span>
+            <span class="logo-pill">daydream</span>
+            <span class="logo-pill">VSCode</span>
+            <span class="logo-pill">Zapier</span>
+            <span class="logo-pill">Linear</span>
+            <span class="logo-pill">Stripe</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="container features__inner">
+        <div class="features__list">
+          <div class="features__header">
+            <span class="section-label">Features</span>
+            <h2 class="features__title">Everything your agent needs<br/>to use the web.</h2>
+          </div>
+          <ul class="feature-items">
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+              <div>
+                <strong>Search API</strong>
+                <p>Web search built for agents. Find relevant websites based on a single query.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+              </div>
+              <div>
+                <strong>Fetch API</strong>
+                <p>Convert any URL into HTML, JSON or markdown for your agent instantly.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div>
+                <strong>Browser-as-a-Service</strong>
+                <p>Give your agent a real browser. Navigate interactive sites and perform complex actions.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <strong>Auth & Sessions</strong>
+                <p>Handle login flows, cookies and persistent sessions automatically.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <strong>Observability</strong>
+                <p>Live session replay, logs and structured traces for every browser task.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-item__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>
+              </div>
+              <div>
+                <strong>Parallel Sessions</strong>
+                <p>Spin up thousands of concurrent browser sessions and return answers immediately.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how">
+      <div class="container">
+        <div class="hiw__header">
+          <span class="section-label">How it works</span>
+          <h2>Zero setup. Real results.</h2>
+          <p>Spin up a browser, connect your model, and execute your first task in minutes.</p>
+        </div>
+        <div class="hiw__steps">
+          <div class="hiw__step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Create a browser session</h3>
+              <p>Spin up a browser instance, configure your environment, and prepare it to run tasks across the web.</p>
+            </div>
+            <div class="step-code">
+              <div class="code-block">
+                <div class="code-block__header">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <span class="code-block__title">session.ts</span>
+                </div>
+                <pre><code><span class="c-purple">import</span> <span class="c-white">Browserbase</span> <span class="c-purple">from</span> <span class="c-green">"@browserbasehq/sdk"</span><span class="c-white">;</span>
+
+<span class="c-blue">const</span> <span class="c-white">bb</span> <span class="c-purple">=</span> <span class="c-blue">new</span> <span class="c-yellow">Browserbase</span><span class="c-white">({</span>
+  <span class="c-white">apiKey:</span> <span class="c-white">process.env.</span><span class="c-orange">BROWSERBASE_API_KEY</span><span class="c-white">,</span>
+<span class="c-white">});</span>
+
+<span class="c-blue">const</span> <span class="c-white">session</span> <span class="c-purple">=</span> <span class="c-purple">await</span> <span class="c-white">bb.sessions.</span><span class="c-yellow">create</span><span class="c-white">({</span>
+  <span class="c-white">projectId:</span> <span class="c-white">process.env.</span><span class="c-orange">BROWSERBASE_PROJECT_ID</span><span class="c-white">,</span>
+<span class="c-white">});</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="hiw__step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>Choose your model</h3>
+              <p>Connect AI to the browser session so it can interpret pages, make decisions, and drive interactions autonomously.</p>
+            </div>
+            <div class="step-code">
+              <div class="code-block">
+                <div class="code-block__header">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <span class="code-block__title">agent.ts</span>
+                </div>
+                <pre><code><span class="c-blue">const</span> <span class="c-white">stagehand</span> <span class="c-purple">=</span> <span class="c-blue">new</span> <span class="c-yellow">Stagehand</span><span class="c-white">({</span>
+  <span class="c-white">sessionId:</span> <span class="c-white">session.id,</span>
+  <span class="c-white">modelName:</span> <span class="c-green">"gpt-4o"</span><span class="c-white">,</span>
+  <span class="c-white">modelClientOptions:</span> <span class="c-white">{</span>
+    <span class="c-white">apiKey:</span> <span class="c-white">process.env.</span><span class="c-orange">OPENAI_API_KEY</span><span class="c-white">,</span>
+  <span class="c-white">},</span>
+<span class="c-white">});</span>
+<span class="c-purple">await</span> <span class="c-white">stagehand.</span><span class="c-yellow">init</span><span class="c-white">();</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="hiw__step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Execute your first task</h3>
+              <p>Run your first workflow end-to-end, from navigation to action, and see results directly in the browser.</p>
+            </div>
+            <div class="step-code">
+              <div class="code-block">
+                <div class="code-block__header">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <span class="code-block__title">task.ts</span>
+                </div>
+                <pre><code><span class="c-purple">await</span> <span class="c-white">stagehand.page.</span><span class="c-yellow">goto</span><span class="c-white">(</span>
+  <span class="c-green">"https://news.ycombinator.com"</span>
+<span class="c-white">);</span>
+
+<span class="c-blue">const</span> <span class="c-white">results</span> <span class="c-purple">=</span> <span class="c-purple">await</span> <span class="c-white">stagehand.page.</span><span class="c-yellow">extract</span><span class="c-white">({</span>
+  <span class="c-white">instruction:</span> <span class="c-green">"Get the top 5 stories"</span><span class="c-white">,</span>
+<span class="c-white">});</span>
+
+<span class="c-white">console.</span><span class="c-yellow">log</span><span class="c-white">(results);</span></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLOGAN DARK SECTION -->
+    <section class="slogan-section">
+      <div class="container slogan__inner">
+        <h2 class="slogan__title">
+          Anything you do with a web browser,<br/>
+          <span class="slogan__highlight">you can do with Browserbase.</span>
+        </h2>
+        <div class="slogan__tabs">
+          <button class="tab-btn tab-btn--active" data-tab="tutorials">Browserbase tutorials</button>
+          <button class="tab-btn" data-tab="access">Web data access</button>
+          <button class="tab-btn" data-tab="scraping">Web scraping</button>
+        </div>
+        <div class="slogan__panels">
+          <div class="slogan__panel active" data-panel="tutorials">
+            <div class="panel__preview">
+              <div class="browser-mock">
+                <div class="browser-mock__bar">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <div class="browser-mock__url">browserbase.com/sessions</div>
+                </div>
+                <div class="browser-mock__content">
+                  <div class="session-item"><span class="session-status active"></span>session_x82ja · running</div>
+                  <div class="session-item"><span class="session-status active"></span>session_9kqpz · running</div>
+                  <div class="session-item"><span class="session-status done"></span>session_m3nry · completed</div>
+                  <div class="session-item"><span class="session-status done"></span>session_7wxlq · completed</div>
+                </div>
+              </div>
+            </div>
+            <div class="panel__text">
+              <h3>Get your agent up &amp; running</h3>
+              <ul>
+                <li>Spin up browser sessions via API in seconds</li>
+                <li>Connect to any AI model or framework</li>
+                <li>Monitor sessions with live replay</li>
+                <li>Scale from 1 to 10,000 sessions instantly</li>
+              </ul>
+              <a href="#" class="btn btn--primary">View tutorials →</a>
+            </div>
+          </div>
+          <div class="slogan__panel" data-panel="access">
+            <div class="panel__preview">
+              <div class="browser-mock">
+                <div class="browser-mock__bar">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <div class="browser-mock__url">api.browserbase.com/fetch</div>
+                </div>
+                <div class="browser-mock__content">
+                  <div class="data-row"><span class="data-key">title:</span> <span class="data-val">"YC Top Stories"</span></div>
+                  <div class="data-row"><span class="data-key">url:</span> <span class="data-val">"news.ycombinator.com"</span></div>
+                  <div class="data-row"><span class="data-key">items:</span> <span class="data-val">[30 results]</span></div>
+                  <div class="data-row"><span class="data-key">format:</span> <span class="data-val">"markdown"</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="panel__text">
+              <h3>Access 85% of the web APIs can't reach</h3>
+              <ul>
+                <li>Bypass login walls and dynamic content</li>
+                <li>Convert any page to clean markdown</li>
+                <li>Handle JavaScript-heavy pages</li>
+                <li>Extract structured data at scale</li>
+              </ul>
+              <a href="#" class="btn btn--primary">View docs →</a>
+            </div>
+          </div>
+          <div class="slogan__panel" data-panel="scraping">
+            <div class="panel__preview">
+              <div class="browser-mock">
+                <div class="browser-mock__bar">
+                  <span class="code-dot red"></span>
+                  <span class="code-dot yellow"></span>
+                  <span class="code-dot green"></span>
+                  <div class="browser-mock__url">dashboard · live scrape</div>
+                </div>
+                <div class="browser-mock__content">
+                  <div class="scrape-row"><span class="scrape-icon">↓</span> amazon.com · 1,240 prices</div>
+                  <div class="scrape-row"><span class="scrape-icon">↓</span> linkedin.com · 890 profiles</div>
+                  <div class="scrape-row"><span class="scrape-icon">↓</span> indeed.com · 3,420 jobs</div>
+                  <div class="scrape-row"><span class="scrape-icon spin">↻</span> g2.com · in progress…</div>
+                </div>
+              </div>
+            </div>
+            <div class="panel__text">
+              <h3>Watch the whole web at once</h3>
+              <ul>
+                <li>Track prices, job listings, competitor moves</li>
+                <li>Thousands of concurrent sessions</li>
+                <li>Residential proxies built-in</li>
+                <li>Auto-retry on CAPTCHA and blocks</li>
+              </ul>
+              <a href="#" class="btn btn--primary">View examples →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="use-cases">
+      <div class="container">
+        <div class="use-cases__header">
+          <span class="section-label">Use cases</span>
+          <h2>What will you build?</h2>
+        </div>
+        <div class="use-cases__grid">
+          <div class="use-card">
+            <div class="use-card__icon">🤖</div>
+            <h3>Build agents that never sleep</h3>
+            <p>Send your agent to search, organize, and act on data while you do literally anything else.</p>
+          </div>
+          <div class="use-card">
+            <div class="use-card__icon">🔓</div>
+            <h3>Access the 85% APIs can't reach</h3>
+            <p>Your agent logs in, navigates, and pulls data from any website, login walls included.</p>
+          </div>
+          <div class="use-card">
+            <div class="use-card__icon">🔍</div>
+            <h3>Catch broken flows early</h3>
+            <p>Run agents that click through your product continuously and alert you the moment something breaks.</p>
+          </div>
+          <div class="use-card">
+            <div class="use-card__icon">⚡</div>
+            <h3>Research at scale</h3>
+            <p>Spin up thousands of concurrent browser sessions and return answers immediately.</p>
+          </div>
+          <div class="use-card">
+            <div class="use-card__icon">📋</div>
+            <h3>Let agents fill in blanks</h3>
+            <p>Job applications, vendor portals, government forms. Agents that act on the web, not just read it.</p>
+          </div>
+          <div class="use-card">
+            <div class="use-card__icon">📊</div>
+            <h3>Move data at agent speed</h3>
+            <p>Upload files, trigger downloads, and process records across hundreds of sites in parallel.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+      <div class="container stats__inner">
+        <p class="stats__label">100% of the web at production scale.</p>
+        <h2 class="stats__title">No obstacles for your agents.<br/>No limits on what they can accomplish.</h2>
+        <div class="stats__grid">
+          <div class="stat-card">
+            <div class="stat-card__num">36,925,870</div>
+            <div class="stat-card__label">Unique Browser Sessions · March 2026</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__num">800K</div>
+            <div class="stat-card__label">Weekly SDK Downloads</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__num">100K+</div>
+            <div class="stat-card__label">Developers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__num">10,000</div>
+            <div class="stat-card__label">Years Spent Browsing The Web</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER LOVE -->
+    <section class="dev-love">
+      <div class="container">
+        <div class="dev-love__header">
+          <h2>Developer love</h2>
+          <p>Tens of thousands of engineers trust Browserbase to power their agents.</p>
+        </div>
+        <div class="tweets-grid">
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#6366f1">JK</div>
+              <div>
+                <div class="tweet-name">James Kim</div>
+                <div class="tweet-handle">@jameskim_dev</div>
+              </div>
+            </div>
+            <p class="tweet-text">Browserbase is genuinely the best infrastructure I've used this year. Spun up 500 concurrent sessions in under a minute. Insane. 🔥</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#ec4899">SR</div>
+              <div>
+                <div class="tweet-name">Sarah Rodriguez</div>
+                <div class="tweet-handle">@srodriguez_ai</div>
+              </div>
+            </div>
+            <p class="tweet-text">We replaced our homegrown scraping infra with Browserbase. 3 months of maintenance just... gone. Our agent now handles login flows we thought were impossible.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#f59e0b">ML</div>
+              <div>
+                <div class="tweet-name">Marcus Lee</div>
+                <div class="tweet-handle">@mlee_builder</div>
+              </div>
+            </div>
+            <p class="tweet-text">The Stagehand SDK on top of Browserbase is legitimately magic. "Click the checkout button" just... works. Every time.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#10b981">AP</div>
+              <div>
+                <div class="tweet-name">Anna Patel</div>
+                <div class="tweet-handle">@annapatel_eng</div>
+              </div>
+            </div>
+            <p class="tweet-text">We're running end-to-end QA tests across our entire product every hour. Found a bug before any user did. Browserbase paid for itself in week one.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#3b82f6">TW</div>
+              <div>
+                <div class="tweet-name">Tyler Wang</div>
+                <div class="tweet-handle">@tylerwang_hq</div>
+              </div>
+            </div>
+            <p class="tweet-text">Finally got my Claude Code agent browsing the web reliably. The session replay feature alone is worth it — debugging is so much faster now.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#8b5cf6">NB</div>
+              <div>
+                <div class="tweet-name">Nina Brooks</div>
+                <div class="tweet-handle">@ninabrooks_</div>
+              </div>
+            </div>
+            <p class="tweet-text">We built a competitor monitoring agent in a weekend. It checks 200 sites every morning and sends us a Slack digest. All powered by Browserbase. 💯</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#ef4444">RC</div>
+              <div>
+                <div class="tweet-name">Ryan Chen</div>
+                <div class="tweet-handle">@ryanc_tech</div>
+              </div>
+            </div>
+            <p class="tweet-text">The Fetch API alone saved us from writing a ton of boilerplate. Pass in a URL, get back clean markdown. Our RAG pipeline loves it.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#0ea5e9">ZH</div>
+              <div>
+                <div class="tweet-name">Zoe Harris</div>
+                <div class="tweet-handle">@zoeharris_dev</div>
+              </div>
+            </div>
+            <p class="tweet-text">CAPTCHAs, login walls, dynamic JS — none of it matters anymore. Our agent just handles it. This is what the web was always supposed to feel like for developers.</p>
+          </div>
+          <div class="tweet-card">
+            <div class="tweet-card__header">
+              <div class="tweet-avatar" style="background:#d97706">BM</div>
+              <div>
+                <div class="tweet-name">Ben Mitchell</div>
+                <div class="tweet-handle">@benmitchell_io</div>
+              </div>
+            </div>
+            <p class="tweet-text">10/10 developer experience. Docs are clean, SDK is intuitive, support is fast. Rare to find infra tooling this polished.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER CTA -->
+  <section class="footer-cta">
+    <div class="container footer-cta__inner">
+      <h2>What will you build?</h2>
+      <a href="#" class="btn btn--dark btn--lg">Get started →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="navbar__logo">
+          <span class="logo-mark-b logo-mark-b--sm" aria-hidden="true">B</span>
+          <span class="logo-text">Browserbase</span>
+        </a>
+        <p class="footer__tagline">Making the web as reliable and<br/>programmable as APIs.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Product</h4>
+          <a href="#">Browser API</a>
+          <a href="#">Search API</a>
+          <a href="#">Fetch API</a>
+          <a href="#">Stagehand SDK</a>
+          <a href="#">Pricing</a>
+        </div>
+        <div class="footer__col">
+          <h4>Developers</h4>
+          <a href="#">Documentation</a>
+          <a href="#">Changelog</a>
+          <a href="#">GitHub</a>
+          <a href="#">Status</a>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <a href="#">Blog</a>
+          <a href="#">About</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <span>© 2026 Browserbase, Inc.</span>
+        <div class="footer__legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
