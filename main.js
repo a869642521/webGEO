@@ -12,9 +12,31 @@ tabBtns.forEach(btn => {
   });
 });
 
+// Feature cards — accordion (one open at a time; click active to close all)
+document.querySelectorAll('.feature-card').forEach((card) => {
+  const btn = card.querySelector('.feature-card__toggle');
+  const panel = card.querySelector('.feature-card__panel');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', () => {
+    const wasActive = card.classList.contains('feature-card--active');
+    document.querySelectorAll('.feature-card').forEach((c) => {
+      c.classList.remove('feature-card--active');
+      const b = c.querySelector('.feature-card__toggle');
+      const p = c.querySelector('.feature-card__panel');
+      b?.setAttribute('aria-expanded', 'false');
+      p?.setAttribute('hidden', '');
+    });
+    if (!wasActive) {
+      card.classList.add('feature-card--active');
+      btn.setAttribute('aria-expanded', 'true');
+      panel.removeAttribute('hidden');
+    }
+  });
+});
+
 // Scroll reveal
 const revealEls = document.querySelectorAll(
-  '.feature-item, .hiw__step, .use-card, .tweet-card, .stat-card, .logo-pill'
+  '.feature-card, .hiw__step, .use-card, .tweet-card, .stat-card, .logo-pill'
 );
 revealEls.forEach((el, i) => {
   el.classList.add('reveal');
@@ -78,3 +100,41 @@ const statObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 statNums.forEach(el => statObserver.observe(el));
+
+// ── 8 independent mini-cube scatter on hover ──────────────────────
+(function () {
+  const scene = document.querySelector('.rubik-scene');
+  if (!scene) return;
+
+  const OFFSET  = 26;  // px: resting distance from rubik center to mini-cube center
+  const SCATTER = 42;  // px: additional outward travel on hover
+
+  const cubes = scene.querySelectorAll('.mcube');
+
+  cubes.forEach(cube => {
+    const dx = parseInt(cube.dataset.x, 10);
+    const dy = parseInt(cube.dataset.y, 10);
+    const dz = parseInt(cube.dataset.z, 10);
+
+    const bx = dx * OFFSET;
+    const by = dy * OFFSET;
+    const bz = dz * OFFSET;
+
+    // store base transform so JS owns positioning
+    cube.style.transform = `translate3d(${bx}px,${by}px,${bz}px)`;
+
+    scene.addEventListener('mouseenter', () => {
+      const sx = bx + dx * SCATTER;
+      const sy = by + dy * SCATTER;
+      const sz = bz + dz * SCATTER;
+      // add a small tilt per cube for organic feel
+      const rx = dy * -12;
+      const ry = dx * 12;
+      cube.style.transform = `translate3d(${sx}px,${sy}px,${sz}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+
+    scene.addEventListener('mouseleave', () => {
+      cube.style.transform = `translate3d(${bx}px,${by}px,${bz}px)`;
+    });
+  });
+}());

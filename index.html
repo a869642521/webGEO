@@ -50,58 +50,92 @@
         </div>
 
         <div class="hero__cube-wrap" aria-hidden="true">
-          <!-- 2×2×2 isometric: spaced cells, per-cube outline, outer wireframe, hard shadow -->
-          <svg class="hero-rubiks" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
-            <defs>
-              <filter id="rubiksFloorShadow" x="-35%" y="-35%" width="170%" height="170%">
-                <feDropShadow dx="16" dy="24" stdDeviation="0" flood-color="#1f2937" flood-opacity=".24"/>
-              </filter>
-            </defs>
-            <ellipse cx="180" cy="268" rx="128" ry="17" fill="#1f2937" opacity=".09"/>
-            <g filter="url(#rubiksFloorShadow)">
-              <!-- iso grid: x=180+(i-j)*29, y=236+(i+j)*16-k*28 — gaps between cells -->
-              <!-- k=0 bottom layer (draw first) -->
-              <g transform="translate(180,236)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#e5e7eb"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#9ca3af"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#6b7280"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(209,252)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#93c5fd"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#60a5fa"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#2563eb"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(151,252)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fdba74"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#fb923c"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#ea580c"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(180,268)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#ddd6fe"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#8b5cf6"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#5b21b6"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <!-- k=1 top layer -->
-              <g transform="translate(180,208)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fef08a"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#eab308"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#a16207"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(209,224)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fce7f3"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#f472b6"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#be185d"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(151,224)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#99f6e4"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#2dd4bf"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#0f766e"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <g transform="translate(180,240)">
-                <path d="M 0,-9 L 11,2 L 0,12 L -11,2 Z" fill="#fecdd3"/><path d="M -11,2 L 0,12 L 0,28 L -11,18 Z" fill="#fb7185"/><path d="M 11,2 L 0,12 L 0,28 L 11,18 Z" fill="#be123c"/>
-                <path d="M 0,-9 L 11,2 L 11,18 L 0,28 L -11,18 L -11,2 Z" fill="none" stroke="#0a0a0a" stroke-width=".9" stroke-linejoin="miter"/>
-              </g>
-              <!-- outer transparent shell -->
-              <path d="M 122 200 L 180 166 L 238 200 L 238 254 L 180 288 L 122 254 Z" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linejoin="miter"/>
-              <path d="M 180 166 L 180 190" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
-              <path d="M 238 200 L 216 212" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
-              <path d="M 122 200 L 144 212" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
-              <path d="M 180 288 L 180 264" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/>
-            </g>
-          </svg>
+          <div class="rubik-scene">
+            <div class="rubik">
+
+              <!-- FTL: 红 -->
+              <div class="mcube" data-x="-1" data-y="-1" data-z="1">
+                <div class="mf mf--f" style="background:#ef4444"></div>
+                <div class="mf mf--b" style="background:#111"></div>
+                <div class="mf mf--l" style="background:#ef4444"></div>
+                <div class="mf mf--r" style="background:#111"></div>
+                <div class="mf mf--t" style="background:#ef4444"></div>
+                <div class="mf mf--bo" style="background:#111"></div>
+              </div>
+
+              <!-- FTR: 橙 -->
+              <div class="mcube" data-x="1" data-y="-1" data-z="1">
+                <div class="mf mf--f" style="background:#f97316"></div>
+                <div class="mf mf--b" style="background:#111"></div>
+                <div class="mf mf--l" style="background:#111"></div>
+                <div class="mf mf--r" style="background:#f97316"></div>
+                <div class="mf mf--t" style="background:#f97316"></div>
+                <div class="mf mf--bo" style="background:#111"></div>
+              </div>
+
+              <!-- FBL: 黄 -->
+              <div class="mcube" data-x="-1" data-y="1" data-z="1">
+                <div class="mf mf--f" style="background:#eab308"></div>
+                <div class="mf mf--b" style="background:#111"></div>
+                <div class="mf mf--l" style="background:#eab308"></div>
+                <div class="mf mf--r" style="background:#111"></div>
+                <div class="mf mf--t" style="background:#111"></div>
+                <div class="mf mf--bo" style="background:#eab308"></div>
+              </div>
+
+              <!-- FBR: 绿 -->
+              <div class="mcube" data-x="1" data-y="1" data-z="1">
+                <div class="mf mf--f" style="background:#22c55e"></div>
+                <div class="mf mf--b" style="background:#111"></div>
+                <div class="mf mf--l" style="background:#111"></div>
+                <div class="mf mf--r" style="background:#22c55e"></div>
+                <div class="mf mf--t" style="background:#111"></div>
+                <div class="mf mf--bo" style="background:#22c55e"></div>
+              </div>
+
+              <!-- BTL: 青 -->
+              <div class="mcube" data-x="-1" data-y="-1" data-z="-1">
+                <div class="mf mf--f" style="background:#111"></div>
+                <div class="mf mf--b" style="background:#06b6d4"></div>
+                <div class="mf mf--l" style="background:#06b6d4"></div>
+                <div class="mf mf--r" style="background:#111"></div>
+                <div class="mf mf--t" style="background:#06b6d4"></div>
+                <div class="mf mf--bo" style="background:#111"></div>
+              </div>
+
+              <!-- BTR: 蓝 -->
+              <div class="mcube" data-x="1" data-y="-1" data-z="-1">
+                <div class="mf mf--f" style="background:#111"></div>
+                <div class="mf mf--b" style="background:#3b82f6"></div>
+                <div class="mf mf--l" style="background:#111"></div>
+                <div class="mf mf--r" style="background:#3b82f6"></div>
+                <div class="mf mf--t" style="background:#3b82f6"></div>
+                <div class="mf mf--bo" style="background:#111"></div>
+              </div>
+
+              <!-- BBL: 紫 -->
+              <div class="mcube" data-x="-1" data-y="1" data-z="-1">
+                <div class="mf mf--f" style="background:#111"></div>
+                <div class="mf mf--b" style="background:#a855f7"></div>
+                <div class="mf mf--l" style="background:#a855f7"></div>
+                <div class="mf mf--r" style="background:#111"></div>
+                <div class="mf mf--t" style="background:#111"></div>
+                <div class="mf mf--bo" style="background:#a855f7"></div>
+              </div>
+
+              <!-- BBR: 白 -->
+              <div class="mcube" data-x="1" data-y="1" data-z="-1">
+                <div class="mf mf--f" style="background:#111"></div>
+                <div class="mf mf--b" style="background:#f1f5f9"></div>
+                <div class="mf mf--l" style="background:#111"></div>
+                <div class="mf mf--r" style="background:#f1f5f9"></div>
+                <div class="mf mf--t" style="background:#111"></div>
+                <div class="mf mf--bo" style="background:#f1f5f9"></div>
+              </div>
+
+            </div>
+          </div>
+          <div class="rubik-shadow"></div>
         </div>
 
         <div class="hero__copy">
@@ -140,59 +174,119 @@
             <span class="section-label">Features</span>
             <h2 class="features__title">Everything your agent needs<br/>to use the web.</h2>
           </div>
-          <ul class="feature-items">
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              </div>
-              <div>
-                <strong>Search API</strong>
-                <p>Web search built for agents. Find relevant websites based on a single query.</p>
-              </div>
-            </li>
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-              </div>
-              <div>
-                <strong>Fetch API</strong>
-                <p>Convert any URL into HTML, JSON or markdown for your agent instantly.</p>
-              </div>
-            </li>
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <div>
-                <strong>Browser-as-a-Service</strong>
-                <p>Give your agent a real browser. Navigate interactive sites and perform complex actions.</p>
+          <ul class="feature-cards">
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-1" id="feature-label-1">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><circle cx="10.5" cy="10.5" r="7"/><path d="M15.5 15.5 21 21"/></svg>
+                  </span>
+                  <span class="feature-card__title">Search API</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-1" role="region" aria-labelledby="feature-label-1" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Web search built for agents. Find relevant websites based on a single query.</li>
+                  <li>Structured results you can pass straight into models or RAG pipelines.</li>
+                </ul>
               </div>
             </li>
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div>
-                <strong>Auth & Sessions</strong>
-                <p>Handle login flows, cookies and persistent sessions automatically.</p>
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-2" id="feature-label-2">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M13 2.5H5.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V8.5L13 2.5z"/><path d="M13 2.5v6h6.5"/></svg>
+                  </span>
+                  <span class="feature-card__title">Fetch API</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-2" role="region" aria-labelledby="feature-label-2" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Convert any URL into HTML, JSON or markdown for your agent instantly.</li>
+                  <li>Skip headless boilerplate—one request, clean output.</li>
+                </ul>
               </div>
             </li>
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <div>
-                <strong>Observability</strong>
-                <p>Live session replay, logs and structured traces for every browser task.</p>
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-3" id="feature-label-3">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="13"/><path d="M8 20.5h8M12 17v3.5"/></svg>
+                  </span>
+                  <span class="feature-card__title">Browser-as-a-Service</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-3" role="region" aria-labelledby="feature-label-3" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Give your agent a real browser. Navigate interactive sites and perform complex actions.</li>
+                  <li>Full rendering for SPAs, JavaScript-heavy pages, and dynamic UIs.</li>
+                </ul>
               </div>
             </li>
-            <li class="feature-item">
-              <div class="feature-item__icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-4" id="feature-label-4">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </span>
+                  <span class="feature-card__title">Auth &amp; Sessions</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-4" role="region" aria-labelledby="feature-label-4" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Handle login flows, cookies and persistent sessions automatically.</li>
+                  <li>Reuse authenticated state across runs without re-entering credentials.</li>
+                </ul>
               </div>
-              <div>
-                <strong>Parallel Sessions</strong>
-                <p>Spin up thousands of concurrent browser sessions and return answers immediately.</p>
+            </li>
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-5" id="feature-label-5">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><polyline points="2 12 6 12 9 3 15 21 18 12 22 12"/></svg>
+                  </span>
+                  <span class="feature-card__title">Observability</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-5" role="region" aria-labelledby="feature-label-5" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Live session replay, logs and structured traces for every browser task.</li>
+                  <li>Debug agent failures with full context—no local reproduction required.</li>
+                </ul>
+              </div>
+            </li>
+            <li class="feature-card">
+              <button type="button" class="feature-card__toggle" aria-expanded="false" aria-controls="feature-panel-6" id="feature-label-6">
+                <span class="feature-card__head">
+                  <span class="feature-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><rect x="2.5" y="2.5" width="19" height="19" fill="none"/><rect x="2.5" y="8.5" width="13" height="13" fill="none"/><rect x="2.5" y="14.5" width="7" height="7" fill="none"/><rect x="2.5" y="18.5" width="3" height="3" fill="currentColor" stroke="none"/></svg>
+                  </span>
+                  <span class="feature-card__title">Parallel Sessions</span>
+                </span>
+                <span class="feature-card__chevron" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><path d="M2.5 4.25L6 7.75L9.5 4.25"/></svg>
+                </span>
+              </button>
+              <div class="feature-card__panel" id="feature-panel-6" role="region" aria-labelledby="feature-label-6" hidden>
+                <ul class="feature-card__bullets">
+                  <li>Spin up thousands of concurrent browser sessions and return answers immediately.</li>
+                  <li>Elastic concurrency without provisioning or managing your own fleet.</li>
+                </ul>
               </div>
             </li>
           </ul>
