@@ -104,9 +104,18 @@ const statObserver = new IntersectionObserver((entries) => {
 statNums.forEach(el => statObserver.observe(el));
 
 // ── 8 mini-cubes：单层 90° 扭动，逆序还原，严格闭环（与 React 版一致）──
+// FEATURES 区通过克隆 Hero 的 .hero__cube-wrap，保证 8 块与颜色与首页一致；双场景共用 runExclusive 队列
 (function () {
-  var scene = document.querySelector('.rubik-scene');
-  if (!scene) return;
+  var heroWrap = document.querySelector('.hero .hero__cube-wrap');
+  var featSlot = document.getElementById('features-rubik-slot');
+  if (heroWrap && featSlot) {
+    var featWrap = heroWrap.cloneNode(true);
+    featWrap.removeAttribute('id');
+    featSlot.replaceWith(featWrap);
+  }
+
+  var scenes = document.querySelectorAll('.hero__cube-wrap .rubik-scene');
+  if (!scenes.length) return;
 
   var OFFSET = 23;
   var SCRAMBLE_SEGMENTS_MS = [
@@ -221,72 +230,7 @@ statNums.forEach(el => statObserver.observe(el));
     return 'matrix3d('+m.map(function(n){return Math.abs(n)<1e-6?0:+n.toFixed(8);}).join(',')+')';
   }
 
-  function applyAll(states) {
-    var cubes = scene.querySelectorAll('.mcube');
-    for (var i=0; i<cubes.length; i++) {
-      var st = states[i]; if (!st) continue;
-      cubes[i].style.transition = 'none';
-      cubes[i].style.transform = mat4css(st.quat, st.pos);
-    }
-  }
-
   function easeInOut(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
-
-  // ─── 动画一次转动 ──────────────────────────────────────────────────────────
-  var rafId = 0;
-  function animateTurn(states, face, prime, durationMs) {
-    var axis  = FACE_AXIS[face];
-    var angle = turnAngle(face, prime);
-    var qR    = qFromAxis(axis, angle);
-    var layer=[]; var sp=[]; var sq=[];
-    for (var i=0; i<8; i++) {
-      if (!inLayer(face, states[i].pos)) continue;
-      layer.push(i);
-      sp.push(states[i].pos.slice());
-      sq.push(states[i].quat.slice());
-    }
-    var ep = sp.map(function(p){ return snapPos(rotVec(axis, angle, p)); });
-    var eq = sq.map(function(q){ return qMul(qR, q); });
-    var t0 = performance.now();
-    return new Promise(function(resolve) {
-      function tick(now) {
-        var raw = Math.min(1, (now-t0)/durationMs);
-        var u   = easeInOut(raw);
-        for (var li=0; li<layer.length; li++) {
-          var idx = layer[li];
-          var pf  = raw>=1 ? ep[li] : rotVec(axis, angle*u, sp[li]);
-          states[idx].pos  = raw>=1 ? ep[li].slice() : [pf[0],pf[1],pf[2]];
-          states[idx].quat = raw>=1 ? eq[li].slice() : qSlerp(sq[li], eq[li], u);
-        }
-        applyAll(states);
-        if (raw < 1) { rafId = requestAnimationFrame(tick); }
-        else         { resolve(); }
-      }
-      rafId = requestAnimationFrame(tick);
-    });
-  }
-
-  // ─── 循环 ─────────────────────────────────────────────────────────────────
-  var timers = [];
-  function sleep(ms) {
-    return new Promise(function(resolve) {
-      timers.push(setTimeout(resolve, ms));
-    });
-  }
-
-  var states = initialStates();
-  applyAll(states);
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var FACES = ['U','D','F','B','R','L'];
-  function randTurn() {
-    return { face: FACES[Math.floor(Math.random()*6)], prime: Math.random()<0.5 };
-  }
-
-  var HOVER_TURN_MS = 440;
-  var HOVER_AFTER_TURN_MS = 120;
-  var HOVER_SCATTER_LEAVE_MS = 420;
 
   var exclusiveTail = Promise.resolve();
   function runExclusive(fn) {
@@ -300,97 +244,168 @@ statNums.forEach(el => statObserver.observe(el));
     return p;
   }
 
-  var pointerInsideScene = false;
-  var hoverPreviewTurn = null;
-
-  function onPointerEnter() {
-    pointerInsideScene = true;
-    runExclusive(function () {
-      return (async function () {
-        var turn = randTurn();
-        hoverPreviewTurn = turn;
-        await animateTurn(states, turn.face, turn.prime, HOVER_TURN_MS);
-        if (!pointerInsideScene) {
-          await animateTurn(states, turn.face, !turn.prime, HOVER_TURN_MS);
-          hoverPreviewTurn = null;
-          return;
-        }
-        await sleep(HOVER_AFTER_TURN_MS);
-        if (!pointerInsideScene) {
-          await animateTurn(states, turn.face, !turn.prime, HOVER_TURN_MS);
-          hoverPreviewTurn = null;
-          return;
-        }
-        scene.classList.add('rubik-scene--scatter');
-      })();
+  function sleep(ms) {
+    return new Promise(function(resolve) {
+      setTimeout(resolve, ms);
     });
   }
 
-  function onPointerLeave() {
-    pointerInsideScene = false;
-    runExclusive(function () {
-      return (async function () {
-        scene.classList.remove('rubik-scene--scatter');
-        await sleep(HOVER_SCATTER_LEAVE_MS);
-        var t = hoverPreviewTurn;
-        hoverPreviewTurn = null;
-        if (t) {
-          await animateTurn(states, t.face, !t.prime, HOVER_TURN_MS);
-        }
-      })();
-    });
+  var FACES = ['U','D','F','B','R','L'];
+  function randTurn() {
+    return { face: FACES[Math.floor(Math.random()*6)], prime: Math.random()<0.5 };
   }
 
-  scene.addEventListener('pointerenter', onPointerEnter);
-  scene.addEventListener('pointerleave', onPointerLeave);
+  var HOVER_TURN_MS = 440;
+  var HOVER_AFTER_TURN_MS = 120;
+  var HOVER_SCATTER_LEAVE_MS = 420;
 
-  async function runCycles() {
-    for (;;) {
-      var history = [];
-      var si, ti, st;
-      for (si = 0; si < SCRAMBLE_SEGMENTS_MS.length; si++) {
-        st = slotTiming(SCRAMBLE_SEGMENTS_MS[si].windowMs, SCRAMBLE_SEGMENTS_MS[si].moves);
-        for (ti = 0; ti < SCRAMBLE_SEGMENTS_MS[si].moves; ti++) {
-          await sleep(st.pauseBefore);
-          var t = randTurn();
-          history.push(t);
-          var tf = t.face;
-          var tp = t.prime;
-          var tm = st.turnMs;
-          await runExclusive(function () {
-            return animateTurn(states, tf, tp, tm);
-          });
-        }
-        if (si < SCRAMBLE_SEGMENTS_MS.length - 1) {
-          await sleep(PAUSE_BETWEEN_BURST_MS);
-        }
+  function initRubikScene(scene, sceneIndex) {
+    var states = initialStates();
+
+    function applyAll() {
+      var cubes = scene.querySelectorAll('.mcube');
+      for (var i=0; i<cubes.length; i++) {
+        var st = states[i]; if (!st) continue;
+        cubes[i].style.transition = 'none';
+        cubes[i].style.transform = mat4css(st.quat, st.pos);
       }
-      await sleep(PAUSE_BETWEEN_BURST_MS);
-      var hi = history.length - 1;
-      for (si = 0; si < UNDO_SEGMENTS_MS.length; si++) {
-        st = slotTiming(UNDO_SEGMENTS_MS[si].windowMs, UNDO_SEGMENTS_MS[si].moves);
-        for (ti = 0; ti < UNDO_SEGMENTS_MS[si].moves; ti++) {
-          await sleep(st.pauseBefore);
-          var inv = history[hi];
-          hi -= 1;
-          var ivf = inv.face;
-          var ivp = !inv.prime;
-          var utm = st.turnMs;
-          await runExclusive(function () {
-            return animateTurn(states, ivf, ivp, utm);
-          });
-        }
-        if (si < UNDO_SEGMENTS_MS.length - 1) {
-          await sleep(PAUSE_BETWEEN_BURST_MS);
-        }
-      }
-      // 对齐精确还原态，消浮点残差
-      var clean = initialStates();
-      for (var j=0; j<8; j++) states[j] = clean[j];
-      applyAll(states);
-      await sleep(PAUSE_BEFORE_RESTART_MS);
     }
+
+    function animateTurn(statesIn, face, prime, durationMs) {
+      var axis  = FACE_AXIS[face];
+      var angle = turnAngle(face, prime);
+      var qR    = qFromAxis(axis, angle);
+      var layer=[]; var sp=[]; var sq=[];
+      for (var i=0; i<8; i++) {
+        if (!inLayer(face, statesIn[i].pos)) continue;
+        layer.push(i);
+        sp.push(statesIn[i].pos.slice());
+        sq.push(statesIn[i].quat.slice());
+      }
+      var ep = sp.map(function(p){ return snapPos(rotVec(axis, angle, p)); });
+      var eq = sq.map(function(q){ return qMul(qR, q); });
+      var t0 = performance.now();
+      return new Promise(function(resolve) {
+        function tick(now) {
+          var raw = Math.min(1, (now-t0)/durationMs);
+          var u   = easeInOut(raw);
+          for (var li=0; li<layer.length; li++) {
+            var idx = layer[li];
+            var pf  = raw>=1 ? ep[li] : rotVec(axis, angle*u, sp[li]);
+            statesIn[idx].pos  = raw>=1 ? ep[li].slice() : [pf[0],pf[1],pf[2]];
+            statesIn[idx].quat = raw>=1 ? eq[li].slice() : qSlerp(sq[li], eq[li], u);
+          }
+          applyAll();
+          if (raw < 1) { requestAnimationFrame(tick); }
+          else         { resolve(); }
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    applyAll();
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var inFeatures = !!scene.closest('#features');
+    var pointerInsideScene = false;
+    var hoverPreviewTurn = null;
+
+    function onPointerEnter() {
+      pointerInsideScene = true;
+      runExclusive(function () {
+        return (async function () {
+          var turn = randTurn();
+          hoverPreviewTurn = turn;
+          await animateTurn(states, turn.face, turn.prime, HOVER_TURN_MS);
+          if (!pointerInsideScene) {
+            await animateTurn(states, turn.face, !turn.prime, HOVER_TURN_MS);
+            hoverPreviewTurn = null;
+            return;
+          }
+          await sleep(HOVER_AFTER_TURN_MS);
+          if (!pointerInsideScene) {
+            await animateTurn(states, turn.face, !turn.prime, HOVER_TURN_MS);
+            hoverPreviewTurn = null;
+            return;
+          }
+          scene.classList.add('rubik-scene--scatter');
+        })();
+      });
+    }
+
+    function onPointerLeave() {
+      pointerInsideScene = false;
+      runExclusive(function () {
+        return (async function () {
+          scene.classList.remove('rubik-scene--scatter');
+          await sleep(HOVER_SCATTER_LEAVE_MS);
+          var t = hoverPreviewTurn;
+          hoverPreviewTurn = null;
+          if (t) {
+            await animateTurn(states, t.face, !t.prime, HOVER_TURN_MS);
+          }
+        })();
+      });
+    }
+
+    if (!inFeatures) {
+      scene.addEventListener('pointerenter', onPointerEnter);
+      scene.addEventListener('pointerleave', onPointerLeave);
+    }
+
+    async function runCycles() {
+      await sleep(sceneIndex * 140);
+      for (;;) {
+        var history = [];
+        var si, ti, st;
+        for (si = 0; si < SCRAMBLE_SEGMENTS_MS.length; si++) {
+          st = slotTiming(SCRAMBLE_SEGMENTS_MS[si].windowMs, SCRAMBLE_SEGMENTS_MS[si].moves);
+          for (ti = 0; ti < SCRAMBLE_SEGMENTS_MS[si].moves; ti++) {
+            await sleep(st.pauseBefore);
+            var t = randTurn();
+            history.push(t);
+            var tf = t.face;
+            var tp = t.prime;
+            var tm = st.turnMs;
+            await runExclusive(function () {
+              return animateTurn(states, tf, tp, tm);
+            });
+          }
+          if (si < SCRAMBLE_SEGMENTS_MS.length - 1) {
+            await sleep(PAUSE_BETWEEN_BURST_MS);
+          }
+        }
+        await sleep(PAUSE_BETWEEN_BURST_MS);
+        var hi = history.length - 1;
+        for (si = 0; si < UNDO_SEGMENTS_MS.length; si++) {
+          st = slotTiming(UNDO_SEGMENTS_MS[si].windowMs, UNDO_SEGMENTS_MS[si].moves);
+          for (ti = 0; ti < UNDO_SEGMENTS_MS[si].moves; ti++) {
+            await sleep(st.pauseBefore);
+            var inv = history[hi];
+            hi -= 1;
+            var ivf = inv.face;
+            var ivp = !inv.prime;
+            var utm = st.turnMs;
+            await runExclusive(function () {
+              return animateTurn(states, ivf, ivp, utm);
+            });
+          }
+          if (si < UNDO_SEGMENTS_MS.length - 1) {
+            await sleep(PAUSE_BETWEEN_BURST_MS);
+          }
+        }
+        var clean = initialStates();
+        for (var j=0; j<8; j++) states[j] = clean[j];
+        applyAll();
+        await sleep(PAUSE_BEFORE_RESTART_MS);
+      }
+    }
+
+    runCycles();
   }
 
-  runCycles();
+  for (var ri = 0; ri < scenes.length; ri++) {
+    initRubikScene(scenes[ri], ri);
+  }
 }());
