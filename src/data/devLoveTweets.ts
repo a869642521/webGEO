@@ -1,0 +1,22 @@
+export type Tweet = { initials: string; bg: string; name: string; handle: string; text: string };
+
+export const DEV_LOVE_TWEETS: Tweet[] = [
+  { initials: 'JK', bg: '#6366f1', name: 'James Kim', handle: '@jameskim_dev', text: "Browserbase is genuinely the best infrastructure I've used this year. Spun up 500 concurrent sessions in under a minute. Insane. 🔥" },
+  { initials: 'SR', bg: '#ec4899', name: 'Sarah Rodriguez', handle: '@srodriguez_ai', text: 'We replaced our homegrown scraping infra with Browserbase. 3 months of maintenance just... gone. Our agent now handles login flows we thought were impossible.' },
+  { initials: 'ML', bg: '#f59e0b', name: 'Marcus Lee', handle: '@mlee_builder', text: 'The Stagehand SDK on top of Browserbase is legitimately magic. "Click the checkout button" just... works. Every time.' },
+  { initials: 'AP', bg: '#10b981', name: 'Anna Patel', handle: '@annapatel_eng', text: "We're running end-to-end QA tests across our entire product every hour. Found a bug before any user did. Browserbase paid for itself in week one." },
+  { initials: 'TW', bg: '#3b82f6', name: 'Tyler Wang', handle: '@tylerwang_hq', text: 'Finally got my Claude Code agent browsing the web reliably. The session replay feature alone is worth it — debugging is so much faster now.' },
+  { initials: 'NB', bg: '#8b5cf6', name: 'Nina Brooks', handle: '@ninabrooks_', text: 'We built a competitor monitoring agent in a weekend. It checks 200 sites every morning and sends us a Slack digest. All powered by Browserbase. 💯' },
+  { initials: 'RC', bg: '#ef4444', name: 'Ryan Chen', handle: '@ryanc_tech', text: 'The Fetch API alone saved us from writing a ton of boilerplate. Pass in a URL, get back clean markdown. Our RAG pipeline loves it.' },
+  { initials: 'ZH', bg: '#0ea5e9', name: 'Zoe Harris', handle: '@zoeharris_dev', text: 'CAPTCHAs, login walls, dynamic JS — none of it matters anymore. Our agent just handles it. This is what the web was always supposed to feel like for developers.' },
+  { initials: 'BM', bg: '#d97706', name: 'Ben Mitchell', handle: '@benmitchell_io', text: '10/10 developer experience. Docs are clean, SDK is intuitive, support is fast. Rare to find infra tooling this polished.' },
+  { initials: 'OF', bg: '#14b8a6', name: 'Olivia Foster', handle: '@oliviafoster', text: 'We run nightly compliance checks across dozens of portals. Same scripts, zero flaky CI — Browserbase made headless browsing boring in the best way.' },
+  { initials: 'DP', bg: '#64748b', name: 'Daniel Park', handle: '@dpark_automation', text: 'Switched from self-hosted Playwright clusters last quarter. Latency is down, our on-call pages basically stopped, and the team actually ships features again.' },
+  { initials: 'ES', bg: '#f472b6', name: 'Emily Stone', handle: '@emstone_ai', text: 'Our research agent pulls citations from paywalled journals we have institutional access to. Cookie handling & SSO just work — we stopped duct-taping proxies.' },
+  { initials: 'LG', bg: '#a855f7', name: 'Luis Gonzalez', handle: '@lgonzalez_dev', text: 'Pricing is predictable, sessions spin up in seconds, and the API surface is small enough to hold in your head. Exactly what we wanted for prod agents.' },
+  { initials: 'PS', bg: '#22c55e', name: 'Priya Sharma', handle: '@priyasharma_ml', text: 'We fine-tune on live product pages scraped with consent. Browserbase gives us clean DOM snapshots without maintaining a scraper zoo. Game changer for our ML loop.' },
+  { initials: 'AR', bg: '#eab308', name: 'Alex Rivera', handle: '@arivera_builds', text: 'Integrated with our LangGraph workflow in an afternoon. Being able to fork a session and diff two runs saved us from a nasty auth regression last sprint.' },
+  { initials: 'CO', bg: '#06b6d4', name: "Chris O'Neill", handle: '@coneill_ops', text: 'We stress-test checkout flows before Black Friday. Parallel browsers across regions, same codebase — no more begging infra for spare VMs.' },
+  { initials: 'HL', bg: '#f43f5e', name: 'Hannah Lee', handle: '@hannahlee_sec', text: 'Security review loved the audit logs and session isolation. We get browser automation without turning our VPC into a maze of exceptions.' },
+  { initials: 'JB', bg: '#78716c', name: 'Jordan Blake', handle: '@jblake_startup', text: "Two engineers, one agent that monitors vendor portals for contract renewals. Browserbase is the only dependency I'd bet the company on at this stage." },
+];

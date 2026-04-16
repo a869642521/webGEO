@@ -440,12 +440,13 @@ img { max-width: 100%; display: block; }
   height: 110px;
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(54.735610317245deg) rotateZ(45deg);
+  /* translateY 写在旋转前：沿屏幕垂直方向浮动，且可走合成层，避免 margin 触发布局抖动 */
+  transform: translateY(0) rotateX(54.735610317245deg) rotateZ(45deg);
   animation: rubikFloat 5.5s ease-in-out infinite;
 }
 @keyframes rubikFloat {
-  0%, 100% { margin-top: 0; }
-  50%       { margin-top: -12px; }
+  0%, 100% { transform: translateY(0) rotateX(54.735610317245deg) rotateZ(45deg); }
+  50%       { transform: translateY(-12px) rotateX(54.735610317245deg) rotateZ(45deg); }
 }
 
 .mcube-wrap {
@@ -694,7 +695,12 @@ img { max-width: 100%; display: block; }
   display: block;
   max-width: 100%;
   margin: 0 0 20px 0;
-  min-height: 420px;
+  min-height: 520px;
+  /* 与 .features__list 的 margin-left 同源，用于把装饰魔方摆在列表左侧留白区中部 */
+  --features-list-start: min(
+    calc(max(0px, 100% - var(--features-col)) * var(--features-phi) + var(--features-shift)),
+    max(0px, 100% - var(--features-col))
+  );
 }
 
 /* 背景：浅灰等距网格 + 首页同款魔方（装饰层，不抢交互） */
@@ -726,12 +732,16 @@ img { max-width: 100%; display: block; }
       transparent 32px
     );
 }
-/* 与 Hero 共用 .hero__cube-wrap，仅在此处绝对定位；尺寸/浮动/阴影与 Banner 一致 */
+/* 与 Hero 共用 DOM；此处居中于「列表左侧留白区」，整体放大为装饰主视觉 */
 .features__bg .hero__cube-wrap {
   position: absolute;
-  left: clamp(8px, 4vw, 56px);
+  left: max(
+    96px,
+    min(calc(var(--features-list-start) * 0.5), calc(var(--features-list-start) - 160px))
+  );
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%) scale(2.45);
+  transform-origin: center center;
   margin-bottom: 0;
 }
 .features__main {
@@ -740,8 +750,11 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 900px) {
+  .features__inner {
+    min-height: 460px;
+  }
   .features__bg .hero__cube-wrap {
-    transform: translateY(-50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(1.85);
   }
 }
 @media (max-width: 640px) {
