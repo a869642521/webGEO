@@ -3,8 +3,7 @@ import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { HowItWorks } from './components/HowItWorks';
 import { SloganSection } from './components/SloganSection';
-import { UseCases } from './components/UseCases';
-import { StatsSection } from './components/StatsSection';
+// import { StatsSection } from './components/StatsSection';
 import { DevLove } from './components/DevLove';
 import { FooterCta } from './components/FooterCta';
 import { Footer } from './components/Footer';
@@ -25,8 +24,7 @@ export default function App() {
         <Features />
         <HowItWorks />
         <SloganSection />
-        <UseCases />
-        <StatsSection />
+        {/* <StatsSection /> */}
         <DevLove />
       </main>
       <FooterCta />

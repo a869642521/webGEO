@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const SELECTOR =
-  '.feature-card, .hiw__step, .use-card, .tweet-card, .stat-card, .logo-pill';
+  '.feature-card, .hiw__step, .tweet-card, .stat-card, .logo-pill';
 
 export function useScrollReveal() {
   useEffect(() => {
