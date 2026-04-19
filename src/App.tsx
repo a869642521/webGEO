@@ -10,11 +10,13 @@ import { Footer } from './components/Footer';
 import { useRubikInit } from './hooks/useRubikInit';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useStatCountUp } from './hooks/useStatCountUp';
+import { useCtaWidthSync } from './hooks/useCtaWidthSync';
 
 export default function App() {
   useRubikInit();
   useScrollReveal();
   useStatCountUp();
+  useCtaWidthSync();
 
   return (
     <>

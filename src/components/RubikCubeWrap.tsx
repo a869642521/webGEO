@@ -11,12 +11,13 @@ const CUBES: { sx: number; sy: number; sz: number; x: number; y: number; z: numb
   { sx: 1, sy: 1, sz: -1, x: 1, y: 1, z: -1, color: '#cbd5e1' },
 ];
 
-type Props = { className?: string };
+type Props = { className?: string; /** 不参与 initRubikScenes 的随机扭动循环（如页脚装饰） */
+  staticScene?: boolean };
 
-export function RubikCubeWrap({ className = '' }: Props) {
+export function RubikCubeWrap({ className = '', staticScene = false }: Props) {
   return (
     <div className={`hero__cube-wrap ${className}`.trim()} aria-hidden="true">
-      <div className="rubik-scene">
+      <div className={`rubik-scene${staticScene ? ' rubik-scene--static' : ''}`.trim()}>
         <div className="rubik">
           {CUBES.map((c) => (
             <div

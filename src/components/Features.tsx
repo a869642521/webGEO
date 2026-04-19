@@ -1,4 +1,4 @@
-import { useCallback, useState, type CSSProperties, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { RubikCubeWrap } from './RubikCubeWrap';
 
 type FeatureItem = {
@@ -134,8 +134,73 @@ function ChevronIcon() {
   );
 }
 
+const FEATURES_CAROUSEL_MQ = '(max-width: 768px)';
+// 与 CSS padding-inline: 30px 同步；ul 是 offsetParent，card_i.offsetLeft = 30 + (i-1)*100vw
+const CAROUSEL_GUTTER = 30;
+
 export function Features() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const [isCarousel, setIsCarousel] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(FEATURES_CAROUSEL_MQ).matches,
+  );
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const featureListRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia(FEATURES_CAROUSEL_MQ);
+    const apply = () => setIsCarousel(mq.matches);
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
+
+  const syncCarouselIndex = useCallback(() => {
+    const el = featureListRef.current;
+    if (!el || !isCarousel) return;
+    const n = el.children.length;
+    if (n === 0) return;
+    let best = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < n; i++) {
+      const child = el.children[i] as HTMLElement;
+      const dist = Math.abs(el.scrollLeft - (child.offsetLeft - CAROUSEL_GUTTER));
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    }
+    setCarouselIndex((prev) => (prev === best ? prev : best));
+  }, [isCarousel]);
+
+  const scrollCarouselTo = useCallback((index: number) => {
+    const el = featureListRef.current;
+    if (!el) return;
+    const child = el.children[index] as HTMLElement | undefined;
+    if (!child) return;
+    el.scrollTo({ left: child.offsetLeft - CAROUSEL_GUTTER, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    if (!isCarousel) return;
+    const el = featureListRef.current;
+    if (!el) return;
+    syncCarouselIndex();
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(syncCarouselIndex);
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    const ro = new ResizeObserver(() => {
+      syncCarouselIndex();
+    });
+    ro.observe(el);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [isCarousel, syncCarouselIndex]);
 
   const onToggle = useCallback((id: string) => {
     setOpenId((cur) => (cur === id ? null : id));
@@ -143,9 +208,11 @@ export function Features() {
 
   return (
     <section className="features" id="features">
+      <div className="features__bleed" aria-hidden="true">
+        <div className="features__bg-grid" />
+      </div>
       <div className="container features__inner">
         <div className="features__bg" aria-hidden="true">
-          <div className="features__bg-grid" />
           <RubikCubeWrap />
         </div>
         <div className="features__main">
@@ -153,18 +220,22 @@ export function Features() {
             <h2 className="features__title">FEATURES</h2>
           </div>
           <div className="features__list">
-            <ul className="feature-cards">
+            <ul ref={featureListRef} className="feature-cards">
               {FEATURE_ITEMS.map((f) => {
                 const active = openId === f.id;
+                const expanded = isCarousel || active;
                 return (
-                  <li key={f.id} className={`feature-card${active ? ' feature-card--active' : ''}`} style={f.style}>
+                  <li key={f.id} className={`feature-card${expanded ? ' feature-card--active' : ''}`} style={f.style}>
                     <button
                       type="button"
                       className="feature-card__toggle"
-                      aria-expanded={active}
+                      aria-expanded={expanded}
                       aria-controls={`feature-panel-${f.id}`}
                       id={`feature-label-${f.id}`}
-                      onClick={() => onToggle(f.id)}
+                      tabIndex={isCarousel ? -1 : undefined}
+                      onClick={() => {
+                        if (!isCarousel) onToggle(f.id);
+                      }}
                     >
                       <span className="feature-card__head">
                         <span className="feature-card__icon" aria-hidden="true">
@@ -177,11 +248,11 @@ export function Features() {
                       </span>
                     </button>
                     <div
-                      className={`feature-card__panel${active ? ' feature-card__panel--open' : ''}`}
+                      className={`feature-card__panel${expanded ? ' feature-card__panel--open' : ''}`}
                       id={`feature-panel-${f.id}`}
                       role="region"
                       aria-labelledby={`feature-label-${f.id}`}
-                      aria-hidden={!active}
+                      aria-hidden={!expanded}
                     >
                       <div className="feature-card__panel-inner">
                         <ul className="feature-card__bullets">
@@ -195,6 +266,21 @@ export function Features() {
                 );
               })}
             </ul>
+            {isCarousel && (
+              <div className="features__carousel-dots" role="tablist" aria-label="功能分页">
+                {FEATURE_ITEMS.map((f, i) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === carouselIndex}
+                    aria-label={`${f.title}，第 ${i + 1} 项，共 ${FEATURE_ITEMS.length} 项`}
+                    className={`features__carousel-dot${i === carouselIndex ? ' features__carousel-dot--active' : ''}`}
+                    onClick={() => scrollCarouselTo(i)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

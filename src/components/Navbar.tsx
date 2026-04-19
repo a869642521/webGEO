@@ -73,7 +73,7 @@ export function Navbar() {
           </a>
         </nav>
         <div className="navbar__actions">
-          <a href="#" className="btn btn--ghost btn--nav-text">
+          <a href="#" className="navbar__text-action">
             Log in
           </a>
           <a href="#" className="btn btn--primary btn--nav">

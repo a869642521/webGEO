@@ -1,4 +1,4 @@
-/** 双场景（Hero + FEATURES）魔方：共用 runExclusive；FEATURES 内不绑悬停 */
+/** Hero / Features / 页脚静态魔方：共用初始布局；页脚仅 applyAll，不参与扭动循环 */
 export function initRubikScenes(): void {
   const scenes = document.querySelectorAll('.hero__cube-wrap .rubik-scene');
   if (!scenes.length) return;
@@ -235,6 +235,9 @@ export function initRubikScenes(): void {
     }
 
     applyAll();
+
+    /* 页脚等：只铺好 2×2×2 初始位姿，不要随机扭动与悬停散开 */
+    if (scene.classList.contains('rubik-scene--static')) return;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

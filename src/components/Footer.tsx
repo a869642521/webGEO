@@ -1,32 +1,58 @@
+import { RubikCubeWrap } from './RubikCubeWrap';
+
+function scrollToPageTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/**
+ * 页脚采用「2 列 × 3 行」原生 CSS Grid：
+ * 所有白线都由 `.footer__inner` 的 `column-gap / row-gap` + 背景色生成，
+ * 外框左右白线由同一容器的 `border-left / border-right` 画出。
+ * 不再使用 ::before/::after、硬写的 <div class="footer__divider"> 或绝对定位 rail。
+ */
 export function Footer() {
   return (
     <footer className="footer">
       <div className="container footer__inner">
-        <div className="footer__cols">
-          <div className="footer__col">
-            <h4>Product</h4>
-            <a href="#">APIs &amp; SDKs</a>
-            <a href="#">Changelog</a>
-            <a href="#">Docs</a>
-          </div>
-          <div className="footer__col">
-            <h4>Company</h4>
-            <a href="#">Careers</a>
-            <a href="#">Partner with Us</a>
-            <a href="#">Trust &amp; Security</a>
-          </div>
-          <div className="footer__col">
-            <h4>Developers</h4>
-            <a href="#">Blog</a>
-            <a href="#">GitHub</a>
-            <a href="#">Status</a>
+        {/* Row 1 · Col 1 — 链接三栏 */}
+        <div className="footer__cell footer__cell--top-left">
+          <div className="footer__cols">
+            <div className="footer__col">
+              <h4>Product</h4>
+              <a href="#">APIs &amp; SDKs</a>
+              <a href="#">Changelog</a>
+              <a href="#">Docs</a>
+            </div>
+            <div className="footer__col">
+              <h4>Company</h4>
+              <a href="#">Careers</a>
+              <a href="#">Partner with Us</a>
+              <a href="#">Trust &amp; Security</a>
+            </div>
+            <div className="footer__col">
+              <h4>Developers</h4>
+              <a href="#">Blog</a>
+              <a href="#">GitHub</a>
+              <a href="#">Status</a>
+            </div>
           </div>
         </div>
-        <div className="footer__mid">
-          <div className="footer__mid-left">
+
+        {/* Row 1 · Col 2 — 魔方 */}
+        <div className="footer__cell footer__cell--top-right">
+          <RubikCubeWrap className="footer__cube-wrap" staticScene />
+        </div>
+
+        {/* Row 2 · Col 1 — 法务链接 */}
+        <div className="footer__cell footer__cell--legal-left">
+          <div className="footer__legal-links">
             <a href="#">Privacy policy</a>
             <a href="#">Terms of Service</a>
           </div>
+        </div>
+
+        {/* Row 2 · Col 2 — 社交图标 */}
+        <div className="footer__cell footer__cell--legal-right">
           <div className="footer__socials">
             <a href="#" className="footer__social" aria-label="LinkedIn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -50,16 +76,41 @@ export function Footer() {
             </a>
           </div>
         </div>
-        <div className="footer__wordmark-row">
+
+        {/* Row 3 · Col 1 — 字标 */}
+        <div className="footer__cell footer__cell--brand-left">
           <h2 className="footer__wordmark">Browserbase</h2>
-          <div className="footer__cube" aria-hidden="true">
-            <div className="footer__cube-face">B</div>
-          </div>
         </div>
-      </div>
-      <div className="footer__bottom">
-        <div className="container footer__bottom-inner">
-          <span>© 2026 Browserbase, Inc.</span>
+
+        {/* Row 3 · Col 2 — 返回顶部：悬停本格铺满橙色底，按钮仅箭头区域 */}
+        <div className="footer__cell footer__cell--brand-right">
+          <button
+            type="button"
+            className="footer__back-top"
+            onClick={scrollToPageTop}
+            aria-label="回到页面顶部"
+          >
+            <svg
+              className="footer__back-top-arrow"
+              viewBox="0 0 100 100"
+              width="120"
+              height="120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              {/* 单位正方形：对角线左下→右上，箭头两翼 = 对角线的水平/垂直跨度（90° 直角头） */}
+              <path
+                d="M0 100 L100 0 M100 0 L0 0 M100 0 L100 100"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+                strokeMiterlimit="8"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </footer>

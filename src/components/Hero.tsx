@@ -22,8 +22,13 @@ export function Hero() {
           <span className="hero__announce-x" aria-hidden="true">
             ×
           </span>
-          <span className="hero__announce-cat">category</span>
-          <span className="hero__announce-copy">Introducing our Search API: Web search, built for agents</span>
+          <span className="hero__announce-cat">new</span>
+          <span className="hero__announce-copy">
+            <span className="hero__announce-copy__full">
+              Introducing our Search API: Web search, built for agents
+            </span>
+            <span className="hero__announce-copy__short">Introducing our Search API</span>
+          </span>
           <span className="hero__announce-arrow" aria-hidden="true">
             &gt;
           </span>
@@ -32,7 +37,10 @@ export function Hero() {
         <RubikCubeWrap />
 
         <div className="hero__copy">
-          <h1 className="hero__title">We help AI use the web.</h1>
+          <h1 className="hero__title">
+            <span className="hero__title-part">We help AI</span>
+            <span className="hero__title-part">use the web.</span>
+          </h1>
           <p className="hero__sub">
             Autonomously read, write, and perform tasks on the web with a headless browser.
           </p>
