@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react';
 
 const CUBES: { sx: number; sy: number; sz: number; x: number; y: number; z: number; color: string }[] = [
-  { sx: -1, sy: -1, sz: 1, x: -1, y: -1, z: 1, color: '#ef4444' },
-  { sx: 1, sy: -1, sz: 1, x: 1, y: -1, z: 1, color: '#f97316' },
+  { sx: -1, sy: -1, sz: 1, x: -1, y: -1, z: 1, color: '#1e40af' },
+  { sx: 1, sy: -1, sz: 1, x: 1, y: -1, z: 1, color: '#2563eb' },
   { sx: -1, sy: 1, sz: 1, x: -1, y: 1, z: 1, color: '#eab308' },
   { sx: 1, sy: 1, sz: 1, x: 1, y: 1, z: 1, color: '#22c55e' },
   { sx: -1, sy: -1, sz: -1, x: -1, y: -1, z: -1, color: '#06b6d4' },

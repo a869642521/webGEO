@@ -14,9 +14,9 @@ const FEATURE_ITEMS: FeatureItem[] = [
     id: '1',
     title: 'Search API',
     style: {
-      ['--feature-accent' as string]: '#E53935',
+      ['--feature-accent' as string]: '#1565C0',
       ['--feature-on-accent' as string]: '#ffffff',
-      ['--feature-panel-bg' as string]: 'rgb(252 235 235)',
+      ['--feature-panel-bg' as string]: 'rgb(232 240 253)',
     },
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
@@ -33,9 +33,9 @@ const FEATURE_ITEMS: FeatureItem[] = [
     id: '2',
     title: 'Fetch API',
     style: {
-      ['--feature-accent' as string]: '#FB8C00',
+      ['--feature-accent' as string]: '#1976D2',
       ['--feature-on-accent' as string]: '#ffffff',
-      ['--feature-panel-bg' as string]: 'rgb(255 244 230)',
+      ['--feature-panel-bg' as string]: 'rgb(227 242 253)',
     },
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
@@ -52,9 +52,9 @@ const FEATURE_ITEMS: FeatureItem[] = [
     id: '3',
     title: 'Browser-as-a-Service',
     style: {
-      ['--feature-accent' as string]: '#FDD835',
-      ['--feature-on-accent' as string]: '#1a1a1a',
-      ['--feature-panel-bg' as string]: 'rgb(255 251 235)',
+      ['--feature-accent' as string]: '#5C6BC0',
+      ['--feature-on-accent' as string]: '#ffffff',
+      ['--feature-panel-bg' as string]: 'rgb(237 242 252)',
     },
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
@@ -122,6 +122,45 @@ const FEATURE_ITEMS: FeatureItem[] = [
     bullets: [
       'Spin up thousands of concurrent browser sessions and return answers immediately.',
       'Elastic concurrency without provisioning or managing your own fleet.',
+    ],
+  },
+  {
+    id: '7',
+    title: 'Webhooks',
+    style: {
+      ['--feature-accent' as string]: '#7E57C2',
+      ['--feature-on-accent' as string]: '#ffffff',
+      ['--feature-panel-bg' as string]: 'rgb(241 236 252)',
+    },
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+        <path d="M8.5 9.5 6 12l2.5 2.5M15.5 9.5 18 12l-2.5 2.5" />
+        <path d="M12 6v2.5M12 15.5V18" />
+        <circle cx="12" cy="12" r="3.5" />
+      </svg>
+    ),
+    bullets: [
+      'Subscribe to session lifecycle events—started, finished, failed—with signed payloads you verify server-side.',
+      'Build automations that react the moment a browser task completes, without polling.',
+    ],
+  },
+  {
+    id: '8',
+    title: 'Regions & Latency',
+    style: {
+      ['--feature-accent' as string]: '#3949AB',
+      ['--feature-on-accent' as string]: '#ffffff',
+      ['--feature-panel-bg' as string]: 'rgb(235 238 252)',
+    },
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18" />
+      </svg>
+    ),
+    bullets: [
+      'Run browser sessions in regions close to your users or target sites to cut round-trip latency.',
+      'Pin workloads to a geography for compliance while keeping the same API surface everywhere.',
     ],
   },
 ];

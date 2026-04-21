@@ -11,6 +11,7 @@ import { useRubikInit } from './hooks/useRubikInit';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useStatCountUp } from './hooks/useStatCountUp';
 import { useCtaWidthSync } from './hooks/useCtaWidthSync';
+import { DebugPanel } from './components/DebugPanel';
 
 export default function App() {
   useRubikInit();
@@ -20,6 +21,7 @@ export default function App() {
 
   return (
     <>
+      <DebugPanel />
       <Navbar />
       <main>
         <Hero />

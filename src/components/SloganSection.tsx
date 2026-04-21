@@ -85,16 +85,16 @@ function BrowserIllustration() {
       {/* Monitor stand base */}
       <rect x="106" y="181" width="74" height="6" rx="1" fill="#b4b4b4" />
 
-      {/* Red isometric cube — overlapping monitor bottom-left */}
+      {/* Blue isometric cube — overlapping monitor bottom-left */}
       {/* Top face */}
-      <polygon points="34,153 60,140 86,153 60,166" fill="#ef4444" />
+      <polygon points="34,153 60,140 86,153 60,166" fill="#3b82f6" />
       {/* Left face */}
-      <polygon points="34,153 60,166 60,192 34,179" fill="#b91c1c" />
+      <polygon points="34,153 60,166 60,192 34,179" fill="#1e3a8a" />
       {/* Right face */}
-      <polygon points="86,153 60,166 60,192 86,179" fill="#dc2626" />
+      <polygon points="86,153 60,166 60,192 86,179" fill="#2563eb" />
 
       {/* Sparkle star top-left of cube */}
-      <path d="M18 143 L21 135 L24 143 L32 146 L24 149 L21 157 L18 149 L10 146 Z" fill="#fbbf24" />
+      <path d="M18 143 L21 135 L24 143 L32 146 L24 149 L21 157 L18 149 L10 146 Z" fill="#93c5fd" />
     </svg>
   );
 }

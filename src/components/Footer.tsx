@@ -82,7 +82,7 @@ export function Footer() {
           <h2 className="footer__wordmark">Browserbase</h2>
         </div>
 
-        {/* Row 3 · Col 2 — 返回顶部：悬停本格铺满橙色底，按钮仅箭头区域 */}
+        {/* Row 3 · Col 2 — 返回顶部：悬停本格铺满亮蓝底，按钮仅箭头区域 */}
         <div className="footer__cell footer__cell--brand-right">
           <button
             type="button"
